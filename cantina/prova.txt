@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <script type="application/shiny-singletons"></script>
+  <script type="application/html-dependencies">json2[2014.02.04];jquery[1.12.4];shiny[1.2.0];htmlwidgets[1.3];dygraphs[1.1.1];moment[2.8.4];moment-timezone[0.2.5];moment-fquarter[1.0.0];dygraphs-binding[1.1.1.6];ionrangeslider[2.1.6];strftime[0.9.2];selectize[0.11.2];bootstrap[3.3.7];bootstrap-datepicker[1.6.4];datatables-css[0.0.0];datatables-binding[0.5];crosstalk[1.0.0];jquery-ui[1.11.4];c3[0.4.11];d3[3.5.5];pivottable[2.19.0];subtotal[1.10.0];polyfill[0.1];rpivotTable_style[0.1];rpivotTable-binding[0.3.0]</script>
+<script src="shared/json2-min.js"></script>
+<script src="shared/jquery.min.js"></script>
+<link href="shared/shiny.css" rel="stylesheet" />
+<script src="shared/shiny.min.js"></script>
+<script src="htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="dygraphs-1.1.1/dygraph.css" rel="stylesheet" />
+<script src="dygraphs-1.1.1/dygraph-combined.js"></script>
+<script src="dygraphs-1.1.1/shapes.js"></script>
+<script src="moment-2.8.4/moment.js"></script>
+<script src="moment-timezone-0.2.5/moment-timezone-with-data.js"></script>
+<script src="moment-fquarter-1.0.0/moment-fquarter.min.js"></script>
+<script src="dygraphs-binding-1.1.1.6/dygraphs.js"></script>
+<link href="shared/ionrangeslider/css/ion.rangeSlider.css" rel="stylesheet" />
+<link href="shared/ionrangeslider/css/ion.rangeSlider.skinShiny.css" rel="stylesheet" />
+<script src="shared/ionrangeslider/js/ion.rangeSlider.min.js"></script>
+<script src="shared/strftime/strftime-min.js"></script>
+<link href="shared/selectize/css/selectize.bootstrap3.css" rel="stylesheet" />
+<!--[if lt IE 9]>
+<script src="shared/selectize/js/es5-shim.min.js"></script>
+<![endif]-->
+<script src="shared/selectize/js/selectize.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="shared/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="shared/bootstrap/js/bootstrap.min.js"></script>
+<script src="shared/bootstrap/shim/html5shiv.min.js"></script>
+<script src="shared/bootstrap/shim/respond.min.js"></script>
+<link href="shared/datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+<script src="shared/datepicker/js/bootstrap-datepicker.min.js"></script>
+<script>
+(function() {
+  var datepicker = $.fn.datepicker.noConflict();
+  $.fn.bsDatepicker = datepicker;
+})();
+</script>
+<link href="datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="datatables-binding-0.5/datatables.js"></script>
+<link href="crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet" />
+<script src="jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script src="jquery-ui-1.11.4/jquery.ui.touch-punch.min.js"></script>
+<link href="c3-0.4.11/c3.min.css" rel="stylesheet" />
+<script src="c3-0.4.11/c3.min.js"></script>
+<script src="d3-3.5.5/d3.v3.min.js"></script>
+<link href="pivottable-2.19.0/pivot.min.css" rel="stylesheet" />
+<script src="pivottable-2.19.0/pivot.min.js"></script>
+<script src="pivottable-2.19.0/d3_renderers.min.js"></script>
+<script src="pivottable-2.19.0/c3_renderers.min.js"></script>
+<script src="pivottable-2.19.0/pivot.cs.min.js"></script>
+<script src="pivottable-2.19.0/pivot.da.min.js"></script>
+<script src="pivottable-2.19.0/pivot.de.min.js"></script>
+<script src="pivottable-2.19.0/pivot.es.min.js"></script>
+<script src="pivottable-2.19.0/pivot.fr.min.js"></script>
+<script src="pivottable-2.19.0/pivot.it.min.js"></script>
+<script src="pivottable-2.19.0/pivot.nl.min.js"></script>
+<script src="pivottable-2.19.0/pivot.pl.min.js"></script>
+<script src="pivottable-2.19.0/pivot.pt.min.js"></script>
+<script src="pivottable-2.19.0/pivot.ru.min.js"></script>
+<script src="pivottable-2.19.0/pivot.sq.min.js"></script>
+<script src="pivottable-2.19.0/pivot.tr.min.js"></script>
+<script src="pivottable-2.19.0/pivot.zh.min.js"></script>
+<link href="subtotal-1.10.0/subtotal.min.css" rel="stylesheet" />
+<script src="subtotal-1.10.0/subtotal.min.js"></script>
+<script src="polyfill-0.1/polyfill.min.js"></script>
+<link href="rpivotTable_style-0.1/rpivotTable.css" rel="stylesheet" />
+<script src="rpivotTable-binding-0.3.0/rpivotTable.js"></script>  <title>Dati di attività della struttuta complessa BG-SO-VA</title>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <span class="navbar-brand">Dati di attività della struttuta complessa BG-SO-VA</span>
+      </div>
+      <ul class="nav navbar-nav" data-tabsetid="2267">
+        <li class="active">
+          <a href="#tab-2267-1" data-toggle="tab" data-value="Struttura complessa ">Struttura complessa </a>
+        </li>
+        <li>
+          <a href="#tab-2267-2" data-toggle="tab" data-value="Reparto">Reparto</a>
+        </li>
+        <li>
+          <a href="#tab-2267-3" data-toggle="tab" data-value="Laboratorio">Laboratorio</a>
+        </li>
+        <li>
+          <a href="#tab-2267-4" data-toggle="tab" data-value="Data Explorer">Data Explorer</a>
+        </li>
+        <li>
+          <a href="#tab-2267-5" data-toggle="tab" data-value="Tabelle Pivot">Tabelle Pivot</a>
+        </li>
+        <li>
+          <a href="#tab-2267-6" data-toggle="tab" data-value="Prove">Prove</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="tab-content" data-tabsetid="2267">
+      <div class="tab-pane active" data-value="Struttura complessa " id="tab-2267-1">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-6">
+              <div style="height:50px"></div>
+              <div id="dygraph" style="width:100%; height:400px; " class="dygraphs html-widget html-widget-output"></div>
+            </div>
+            <div class="col-sm-6">
+              <div style="height:50px"></div>
+              <div id="vargraf" style="width:100%; height:400px; " class="dygraphs html-widget html-widget-output"></div>
+            </div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-sm-6">
+              <div style="height:50px" align="center">
+                <div class="form-group shiny-input-container">
+                  <label class="control-label" for="mesi">smoothing value</label>
+                  <input class="js-range-slider" id="mesi" data-min="0" data-max="48" data-from="1" data-step="1" data-grid="true" data-grid-num="9.6" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div style="height:50px" align="center">
+                <div class="form-group shiny-input-container">
+                  <label class="control-label" for="set">settore</label>
+                  <div>
+                    <select id="set"><option value="Alimenti Uomo" selected>Alimenti Uomo</option>
+<option value="Sanità Animale">Sanità Animale</option>
+<option value="Controlli Interni Sistema Qualità">Controlli Interni Sistema Qualità</option>
+<option value="Alimenti Zootecnici">Alimenti Zootecnici</option>
+<option value="Altri Controlli (cosmetici,ambientali..)">Altri Controlli (cosmetici,ambientali..)</option></select>
+                    <script type="application/json" data-for="set" data-nonempty="">{}</script>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br/>
+          <br/>
+          <hr/>
+        </div>
+      </div>
+      <div class="tab-pane" data-value="Reparto" id="tab-2267-2">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12">
+              <div style="height:50px" align="center">
+                <div class="form-group shiny-input-container">
+                  <label class="control-label" for="sez">seleziona un reparto</label>
+                  <div>
+                    <select id="sez"><option value="Sezione di Bergamo" selected>Sezione di Bergamo</option>
+<option value="Sezione di Binago">Sezione di Binago</option>
+<option value="Sezione di Sondrio">Sezione di Sondrio</option></select>
+                    <script type="application/json" data-for="sez" data-nonempty="">{}</script>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div style="height:50px"></div>
+              <div id="regraph" style="width:100%; height:400px; " class="dygraphs html-widget html-widget-output"></div>
+            </div>
+            <div class="col-sm-6">
+              <div style="height:50px"></div>
+              <div id="revargraf" style="width:100%; height:400px; " class="dygraphs html-widget html-widget-output"></div>
+            </div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-sm-6">
+              <div style="height:50px" align="center">
+                <div class="form-group shiny-input-container">
+                  <label class="control-label" for="mesi2">smoothing value</label>
+                  <input class="js-range-slider" id="mesi2" data-min="0" data-max="48" data-from="1" data-step="1" data-grid="true" data-grid-num="9.6" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div style="height:50px" align="center">
+                <div class="form-group shiny-input-container">
+                  <label class="control-label" for="set2">settore</label>
+                  <div>
+                    <select id="set2"><option value="Alimenti Uomo" selected>Alimenti Uomo</option>
+<option value="Sanità Animale">Sanità Animale</option>
+<option value="Controlli Interni Sistema Qualità">Controlli Interni Sistema Qualità</option>
+<option value="Alimenti Zootecnici">Alimenti Zootecnici</option>
+<option value="Altri Controlli (cosmetici,ambientali..)">Altri Controlli (cosmetici,ambientali..)</option></select>
+                    <script type="application/json" data-for="set2" data-nonempty="">{}</script>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br/>
+          <br/>
+          <hr/>
+        </div>
+      </div>
+      <div class="tab-pane" data-value="Laboratorio" id="tab-2267-3">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-6">
+              <div style="height:50px" align="center">
+                <div class="form-group shiny-input-container">
+                  <label class="control-label" for="sez2">seleziona un reparto</label>
+                  <div>
+                    <select id="sez2"><option value="Sezione di Bergamo" selected>Sezione di Bergamo</option>
+<option value="Sezione di Binago">Sezione di Binago</option>
+<option value="Sezione di Sondrio">Sezione di Sondrio</option></select>
+                    <script type="application/json" data-for="sez2" data-nonempty="">{}</script>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div style="height:50px" align="center">
+                <div class="form-group shiny-input-container">
+                  <label class="control-label" for="laboratorio">seleziona un laboratorio</label>
+                  <div>
+                    <select id="laboratorio"><option value="Laboratorio Microbiologia degli Alimenti" selected>Laboratorio Microbiologia degli Alimenti</option>
+<option value="Laboratorio Diagnostica Generale">Laboratorio Diagnostica Generale</option>
+<option value="Laboratorio Sierologia">Laboratorio Sierologia</option></select>
+                    <script type="application/json" data-for="laboratorio" data-nonempty="">{}</script>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr/>
+          <br/>
+          <div class="row">
+            <div class="col-sm-12">
+              <div style="height:5px" align="center">
+                <div class="form-group shiny-input-container">
+                  <label class="control-label" for="mesi3">smoothing value</label>
+                  <input class="js-range-slider" id="mesi3" data-min="0" data-max="48" data-from="1" data-step="1" data-grid="true" data-grid-num="9.6" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <div class="row">
+            <div class="col-sm-12">
+              <div style="height:5px" align="center">
+                <div id="labgraph" style="width:100%; height:400px; " class="dygraphs html-widget html-widget-output"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" data-value="Data Explorer" id="tab-2267-4">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group shiny-input-container">
+              <label class="control-label" for="settore">Settore:</label>
+              <div>
+                <select id="settore"><option value="All" selected>All</option>
+<option value="Alimenti Uomo">Alimenti Uomo</option>
+<option value="Sanità Animale">Sanità Animale</option>
+<option value="Controlli Interni Sistema Qualità">Controlli Interni Sistema Qualità</option>
+<option value="Alimenti Zootecnici">Alimenti Zootecnici</option>
+<option value="Altri Controlli (cosmetici,ambientali..)">Altri Controlli (cosmetici,ambientali..)</option></select>
+                <script type="application/json" data-for="settore" data-nonempty="">{}</script>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group shiny-input-container">
+              <label class="control-label" for="reparto">Sezione:</label>
+              <div>
+                <select id="reparto"><option value="All" selected>All</option>
+<option value="Sezione di Bergamo">Sezione di Bergamo</option>
+<option value="Sezione di Binago">Sezione di Binago</option>
+<option value="Sezione di Sondrio">Sezione di Sondrio</option></select>
+                <script type="application/json" data-for="reparto" data-nonempty="">{}</script>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group shiny-input-container">
+              <label class="control-label" for="labs">Laboratorio:</label>
+              <div>
+                <select id="labs"><option value="All" selected>All</option>
+<option value="Laboratorio Microbiologia degli Alimenti">Laboratorio Microbiologia degli Alimenti</option>
+<option value="Laboratorio Diagnostica Generale">Laboratorio Diagnostica Generale</option>
+<option value="Laboratorio Sierologia">Laboratorio Sierologia</option></select>
+                <script type="application/json" data-for="labs" data-nonempty="">{}</script>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group shiny-input-container">
+              <label class="control-label" for="finalità">Finalità della Prova:</label>
+              <div>
+                <select id="finalità"><option value="All" selected>All</option>
+<option value="Controllo alimenti">Controllo alimenti</option>
+<option value="Esame trichinoscopico">Esame trichinoscopico</option>
+<option value="Piano risanamento e profilassi bovini-ovicaprini">Piano risanamento e profilassi bovini-ovicaprini</option>
+<option value="Piano risanamento anemia infettiva">Piano risanamento anemia infettiva</option>
+<option value="Monitoraggio fauna selvatica Lombardia">Monitoraggio fauna selvatica Lombardia</option>
+<option value="Diagnostica">Diagnostica</option>
+<option value="Attività di controllo UVAC">Attività di controllo UVAC</option>
+<option value="Igiene della macellazione - carcasse">Igiene della macellazione - carcasse</option>
+<option value="Autocontrollo">Autocontrollo</option>
+<option value="Qualifica/mantenimento qualifica personale">Qualifica/mantenimento qualifica personale</option>
+<option value="Ordinanza esche bocconi avvelenati">Ordinanza esche bocconi avvelenati</option>
+<option value="Compravendita">Compravendita</option>
+<option value="Prestazioni a pagamento A.s.l.">Prestazioni a pagamento A.s.l.</option>
+<option value="Piano IBR">Piano IBR</option>
+<option value="Esame batteriologico MSU">Esame batteriologico MSU</option>
+<option value="Controlli di qualità interni">Controlli di qualità interni</option>
+<option value="Piano sorveglianza nazionale West Nile Disease">Piano sorveglianza nazionale West Nile Disease</option>
+<option value="Piano Mastiti">Piano Mastiti</option>
+<option value="Piano risanamento latte bovini ovicaprini">Piano risanamento latte bovini ovicaprini</option>
+<option value="Piano Agalassia">Piano Agalassia</option>
+<option value="Piano Paratubercolosi">Piano Paratubercolosi</option>
+<option value="PG 00/085 - controlli qualità microbiologici">PG 00/085 - controlli qualità microbiologici</option>
+<option value="Piano Selezione genetica Scrapie Ovini">Piano Selezione genetica Scrapie Ovini</option>
+<option value="Approvazione riproduttori">Approvazione riproduttori</option>
+<option value="Prestazione nell&#39;interesse del proprietario">Prestazione nell'interesse del proprietario</option>
+<option value="Piano monitoraggio latte crudo al consumo">Piano monitoraggio latte crudo al consumo</option>
+<option value="Circuiti esterni di laboratorio">Circuiti esterni di laboratorio</option>
+<option value="PNR prelievo mirato">PNR prelievo mirato</option>
+<option value="PG 00/047 - superfici di lavoro/aria">PG 00/047 - superfici di lavoro/aria</option>
+<option value="Piano S.enteritidis e typhimurium galline ovaiole">Piano S.enteritidis e typhimurium galline ovaiole</option>
+<option value="Piano nazionale alimenti animali: sorveglianza">Piano nazionale alimenti animali: sorveglianza</option>
+<option value="Esame Batteriologico Carni">Esame Batteriologico Carni</option>
+<option value="Verifica Ispettiva Esterna">Verifica Ispettiva Esterna</option>
+<option value="PG 00/048 - autoclavi e stufe a secco">PG 00/048 - autoclavi e stufe a secco</option>
+<option value="Igiene della macellazione">Igiene della macellazione</option>
+<option value="Piano S.enteritidis e typhimurium riproduttori">Piano S.enteritidis e typhimurium riproduttori</option>
+<option value="Diagnostica micobatteri">Diagnostica micobatteri</option>
+<option value="Piano Bluetongue">Piano Bluetongue</option>
+<option value="PNR Extrapiano mirato">PNR Extrapiano mirato</option>
+<option value="Esportazione Russia">Esportazione Russia</option>
+<option value="Progetto: PRC2015020">Progetto: PRC2015020</option>
+<option value="Piano Malattia Aujeszky">Piano Malattia Aujeszky</option>
+<option value="Piano monitoraggio latte crudo">Piano monitoraggio latte crudo</option>
+<option value="Piano nazionale alimenti animali: monitoraggio">Piano nazionale alimenti animali: monitoraggio</option>
+<option value="Attività di controllo PIF">Attività di controllo PIF</option>
+<option value="Indagine genotipizzazione proteina prionica PrP">Indagine genotipizzazione proteina prionica PrP</option>
+<option value="Validazione metodiche">Validazione metodiche</option>
+<option value="PNR Sospetto clinico anamnestico">PNR Sospetto clinico anamnestico</option>
+<option value="Circuiti interni di laboratorio">Circuiti interni di laboratorio</option>
+<option value="Messa a punto metodica">Messa a punto metodica</option>
+<option value="Progetto: PRC2015019">Progetto: PRC2015019</option>
+<option value="Progetto: PRC2016020">Progetto: PRC2016020</option>
+<option value="Piano S.enteritidis e typhimurium polli da carne">Piano S.enteritidis e typhimurium polli da carne</option>
+<option value="Piano Peste Suina Classica">Piano Peste Suina Classica</option>
+<option value="Progetto: PRC2014008">Progetto: PRC2014008</option>
+<option value="Piano S.enteritidis e typhimurium tacchini">Piano S.enteritidis e typhimurium tacchini</option>
+<option value="PG 00/084 - Incertezza di misura">PG 00/084 - Incertezza di misura</option>
+<option value="Piano Influenza aviare">Piano Influenza aviare</option>
+<option value="Piano Alpeggio Regione Lombardia">Piano Alpeggio Regione Lombardia</option>
+<option value="PNR Sospetto a seguito di positività">PNR Sospetto a seguito di positività</option>
+<option value="Verifica prestazioni strumentali">Verifica prestazioni strumentali</option>
+<option value="Controllo Alimenti Zootecnici">Controllo Alimenti Zootecnici</option>
+<option value="Attività di conferma per altro Ente">Attività di conferma per altro Ente</option>
+<option value="Progetto: MONITORAGGIO_EXPORT">Progetto: MONITORAGGIO_EXPORT</option>
+<option value="Genotipizzazione becchi">Genotipizzazione becchi</option>
+<option value="Progetto: AUTOFINPERCASO">Progetto: AUTOFINPERCASO</option>
+<option value="Attività di controllo USMAF">Attività di controllo USMAF</option>
+<option value="Attività di controllo NAS">Attività di controllo NAS</option>
+<option value="Produzioni interne">Produzioni interne</option>
+<option value="OM 10/02/2012 esche bocconi avvelenati">OM 10/02/2012 esche bocconi avvelenati</option>
+<option value="Piano Volontario IBR Reg. Lombardia">Piano Volontario IBR Reg. Lombardia</option>
+<option value="Piano volontario IBR Lomb. Mantenimento qualifica">Piano volontario IBR Lomb. Mantenimento qualifica</option>
+<option value="PG 00/046 - cappe a flusso laminare">PG 00/046 - cappe a flusso laminare</option>
+<option value="Latte crudo autocontrollo">Latte crudo autocontrollo</option>
+<option value="Latte crudo autocontrollo al consumo">Latte crudo autocontrollo al consumo</option>
+<option value="Piano nazionale alimenti animali: extrapiano">Piano nazionale alimenti animali: extrapiano</option>
+<option value="Progetto: COLL.SCIENT.UNIV.&#39;15">Progetto: COLL.SCIENT.UNIV.'15</option>
+<option value="Piano risanamento bovini ed ovicaprini">Piano risanamento bovini ed ovicaprini</option>
+<option value="Piano Malattia vescicolare">Piano Malattia vescicolare</option>
+<option value="PNR prelievo a seguito di positività">PNR prelievo a seguito di positività</option>
+<option value="Piano monitoraggio api">Piano monitoraggio api</option>
+<option value="Piano Bruc. Leb. Latte Lombardia">Piano Bruc. Leb. Latte Lombardia</option>
+<option value="Acque Potabili Dl.vo 2/2/2001 n.31">Acque Potabili Dl.vo 2/2/2001 n.31</option>
+<option value="Commessa: COMMCRtub">Commessa: COMMCRtub</option>
+<option value="Prelievo su indicazione UVAC">Prelievo su indicazione UVAC</option>
+<option value="Centro di referenza tubercolosi bovina">Centro di referenza tubercolosi bovina</option>
+<option value="Progetto: PRC2011012">Progetto: PRC2011012</option>
+<option value="Rispondenza Requisiti contrattuali">Rispondenza Requisiti contrattuali</option>
+<option value="Tossinfezioni">Tossinfezioni</option>
+<option value="Verifica autocontrollo">Verifica autocontrollo</option>
+<option value="Piano Regionale Alimenti (Lombardia)">Piano Regionale Alimenti (Lombardia)</option>
+<option value="Piano latte qualità microbiologica">Piano latte qualità microbiologica</option>
+<option value="Piano Reg.2073/05">Piano Reg.2073/05</option>
+<option value="Piano monitoraggio molluschi">Piano monitoraggio molluschi</option>
+<option value="NA">NA</option>
+<option value="Prelievo PIF">Prelievo PIF</option>
+<option value="Monitoraggio">Monitoraggio</option>
+<option value="Verifica requisiti sicurezza alimentare">Verifica requisiti sicurezza alimentare</option>
+<option value="Piano Listeria 2014">Piano Listeria 2014</option>
+<option value="Prelievo su indicazione NAS">Prelievo su indicazione NAS</option>
+<option value="Per contaminazione ambientale">Per contaminazione ambientale</option>
+<option value="Piano E.coli VTEC">Piano E.coli VTEC</option>
+<option value="Prelievo UVAC">Prelievo UVAC</option>
+<option value="Su segnalazione del consumatore">Su segnalazione del consumatore</option>
+<option value="Commessa: COMM12007">Commessa: COMM12007</option>
+<option value="Progetto: PRC2011018">Progetto: PRC2011018</option>
+<option value="Piano Ring test Reg. Lombardia">Piano Ring test Reg. Lombardia</option>
+<option value="BSE Mod.3">BSE Mod.3</option>
+<option value="PNR Extrapiano a seguito di positività">PNR Extrapiano a seguito di positività</option>
+<option value="Benessere Animale">Benessere Animale</option>
+<option value="Piano risanamento pullorosi">Piano risanamento pullorosi</option>
+<option value="Piano sorveglianza aflatossine Lombardia">Piano sorveglianza aflatossine Lombardia</option>
+<option value="Commessa: COMM_SIVARS2012">Commessa: COMM_SIVARS2012</option>
+<option value="Sotto vincolo non legale">Sotto vincolo non legale</option>
+<option value="Attività di screening per altro Ente">Attività di screening per altro Ente</option>
+<option value="Progetto: Lattecrudo-Auto2">Progetto: Lattecrudo-Auto2</option>
+<option value="Progetto: LattecrudoCONS-Auto2">Progetto: LattecrudoCONS-Auto2</option>
+<option value="Piano Salmonella Regione Lombardia">Piano Salmonella Regione Lombardia</option>
+<option value="Progetto: PRC2010014">Progetto: PRC2010014</option>
+<option value="Progetto: EXPO PIANO LISTERIA">Progetto: EXPO PIANO LISTERIA</option>
+<option value="Piano tubercolosi">Piano tubercolosi</option>
+<option value="Progetto: PRC2010003">Progetto: PRC2010003</option>
+<option value="Monitoraggio fauna selvatica">Monitoraggio fauna selvatica</option>
+<option value="Esportazione USA">Esportazione USA</option>
+<option value="Piano nazionale alimenti animali: sospetto">Piano nazionale alimenti animali: sospetto</option>
+<option value="OM 18/12/2008 esche bocconi avvelenati e succ.mod.">OM 18/12/2008 esche bocconi avvelenati e succ.mod.</option>
+<option value="Monitoraggio volpi regione Lombardia">Monitoraggio volpi regione Lombardia</option>
+<option value="Progetto: PRC2010007">Progetto: PRC2010007</option>
+<option value="Non specificato">Non specificato</option>
+<option value="Progetto: Lattecrudo-Auto">Progetto: Lattecrudo-Auto</option>
+<option value="Piano L.monocytogenes Regione Lombardia">Piano L.monocytogenes Regione Lombardia</option>
+<option value="Progetto: LattecrudoCONS-Auto">Progetto: LattecrudoCONS-Auto</option>
+<option value="Prelievo con finalità non definita">Prelievo con finalità non definita</option>
+<option value="Piano Morbo coitale maligno">Piano Morbo coitale maligno</option>
+<option value="Progetto: PRC2011017">Progetto: PRC2011017</option>
+<option value="Decisione Cee 471- igiene della macellazione">Decisione Cee 471- igiene della macellazione</option>
+<option value="Extrapiano (PNAA)">Extrapiano (PNAA)</option>
+<option value="Piano aborti bovine da latte">Piano aborti bovine da latte</option>
+<option value="Commessa: COMM_SIVARS2010">Commessa: COMM_SIVARS2010</option>
+<option value="Piano sorveglianza latte crudo al consumo ASL">Piano sorveglianza latte crudo al consumo ASL</option>
+<option value="Progetto: EMIDA-TB Alpine Wild">Progetto: EMIDA-TB Alpine Wild</option>
+<option value="Progetto: PRC2008007">Progetto: PRC2008007</option>
+<option value="Piano nazionale alimenti animali: sorveglianza2011">Piano nazionale alimenti animali: sorveglianza2011</option>
+<option value="Piano nazionale alimenti animali: vigilanza 2011">Piano nazionale alimenti animali: vigilanza 2011</option>
+<option value="Reg. CE 853/2004">Reg. CE 853/2004</option>
+<option value="Progetto: PRC2008008">Progetto: PRC2008008</option>
+<option value="Progetto: PRC2009015">Progetto: PRC2009015</option>
+<option value="Esportazione Giappone">Esportazione Giappone</option>
+<option value="Ricerca">Ricerca</option>
+<option value="Centro Nazionale di Referenza">Centro Nazionale di Referenza</option>
+<option value="Progetto: PROGR.LATTE CRUDO 11">Progetto: PROGR.LATTE CRUDO 11</option>
+<option value="Commessa: COMMCRauj">Commessa: COMMCRauj</option>
+<option value="Commessa: COMMCRclam">Commessa: COMMCRclam</option>
+<option value="Progetto: PRC2008014">Progetto: PRC2008014</option>
+<option value="Altri Controlli">Altri Controlli</option>
+<option value="PNAA">PNAA</option>
+<option value="Sorveglianza epidemiologica">Sorveglianza epidemiologica</option>
+<option value="Prelievo su indicazione PIF">Prelievo su indicazione PIF</option>
+<option value="Progetto: 2007108">Progetto: 2007108</option>
+<option value="Verifica Ispettiva">Verifica Ispettiva</option>
+<option value="Sotto vincolo sanitario">Sotto vincolo sanitario</option>
+<option value="Piano sbiancanti">Piano sbiancanti</option>
+<option value="Piano sorveglianza latte crudo ASL">Piano sorveglianza latte crudo ASL</option>
+<option value="Piano Salmonella controllo uova consumo">Piano Salmonella controllo uova consumo</option>
+<option value="Esportazione USA/Giappone">Esportazione USA/Giappone</option>
+<option value="Piano Regionale Alimenti (Emilia Romagna)">Piano Regionale Alimenti (Emilia Romagna)</option>
+<option value="Progetto: PRC2007007">Progetto: PRC2007007</option>
+<option value="Mantenimento Qualificazione Personale">Mantenimento Qualificazione Personale</option>
+<option value="Tutela Ambiente">Tutela Ambiente</option>
+<option value="DPR 54/97 (latte e derivati)">DPR 54/97 (latte e derivati)</option>
+<option value="Progetto: PRF2006305">Progetto: PRF2006305</option>
+<option value="DM 23/12/1992 (pesticidi)">DM 23/12/1992 (pesticidi)</option>
+<option value="Piano campylobacter broiler (Dec.2007/516/EC)">Piano campylobacter broiler (Dec.2007/516/EC)</option>
+<option value="Qualificazione Personale">Qualificazione Personale</option>
+<option value="TSE - ricerca farine animali">TSE - ricerca farine animali</option>
+<option value="Piano salmonella/MRSA suini riprod (Dec.2008/55/EC">Piano salmonella/MRSA suini riprod (Dec.2008/55/EC</option>
+<option value="Rivalidazione reagenti/terreni/ecc..">Rivalidazione reagenti/terreni/ecc..</option>
+<option value="Progetto: PRC2005001">Progetto: PRC2005001</option>
+<option value="Progetto: PRC2006001">Progetto: PRC2006001</option>
+<option value="Monitoraggio opistorchiasi">Monitoraggio opistorchiasi</option>
+<option value="Progetto: PRC2005014">Progetto: PRC2005014</option>
+<option value="Piano salmonella suini (Dec. 2006/668/EC)">Piano salmonella suini (Dec. 2006/668/EC)</option>
+<option value="Piano salmonella tacchini (Dec. 2006/662/EC)">Piano salmonella tacchini (Dec. 2006/662/EC)</option>
+<option value="Piano Salmonelle Broiler Dec.UE 636/2005">Piano Salmonelle Broiler Dec.UE 636/2005</option>
+<option value="Monitoraggio carni contaminate SNC-1139/03/CE">Monitoraggio carni contaminate SNC-1139/03/CE</option>
+<option value="Progetto: PRC2004015">Progetto: PRC2004015</option>
+<option value="Commessa: COMM06003">Commessa: COMM06003</option>
+<option value="Commessa: COMM06002">Commessa: COMM06002</option>
+<option value="Progetto: PRC2004014">Progetto: PRC2004014</option>
+<option value="Progetto: PRC 2004105">Progetto: PRC 2004105</option>
+<option value="Progetto: PRC2004007">Progetto: PRC2004007</option>
+<option value="Progetto: PRC2003108">Progetto: PRC2003108</option>
+<option value="Progetto: PRC2004108">Progetto: PRC2004108</option>
+<option value="Progetto: PRC2002102">Progetto: PRC2002102</option>
+<option value="Progetto: PRC2002002">Progetto: PRC2002002</option>
+<option value="Progetto: PRC2003005">Progetto: PRC2003005</option>
+<option value="Piano Salmonella ovaiole Dec. UE 665/2004">Piano Salmonella ovaiole Dec. UE 665/2004</option>
+<option value="Prelievo per allerta comunitaria">Prelievo per allerta comunitaria</option>
+<option value="Tbc bovina - piano str. Isoniazide">Tbc bovina - piano str. Isoniazide</option>
+<option value="Prog. Ricerca Lombardia Paratubercolosi">Prog. Ricerca Lombardia Paratubercolosi</option>
+<option value="Campionamento su sospetto (D.L.vo 336/99)">Campionamento su sospetto (D.L.vo 336/99)</option>
+<option value="Piano Nazionale Residui (PNR)">Piano Nazionale Residui (PNR)</option>
+<option value="Raccomandazione UE 2003/12/19">Raccomandazione UE 2003/12/19</option>
+<option value="Progetto: PRC2003025">Progetto: PRC2003025</option>
+<option value="Extrapiano Residui">Extrapiano Residui</option>
+<option value="Legge 169/89 Latte Alimentare">Legge 169/89 Latte Alimentare</option>
+<option value="Piano OGM Regione Lombardia">Piano OGM Regione Lombardia</option>
+<option value="Conoscitivo">Conoscitivo</option>
+<option value="Sotto vincolo">Sotto vincolo</option>
+<option value="Cosmetici">Cosmetici</option>
+<option value="Abilitazione operatore">Abilitazione operatore</option>
+<option value="Progetto: PRC2018005">Progetto: PRC2018005</option>
+<option value="Piano IBR Razze italiane">Piano IBR Razze italiane</option></select>
+                <script type="application/json" data-for="finalità" data-nonempty="">{}</script>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div align="center">
+              <div id="dateRange" class="shiny-date-range-input form-group shiny-input-container">
+                <label class="control-label" for="dateRange">Seleziona un intervallo di tempo</label>
+                <div class="input-daterange input-group">
+                  <input class="input-sm form-control" type="text" data-date-language="en" data-date-week-start="0" data-date-format="yyyy-mm-dd" data-date-start-view="month" data-initial-date="2019-02-12" data-date-autoclose="true"/>
+                  <span class="input-group-addon"> to </span>
+                  <input class="input-sm form-control" type="text" data-date-language="en" data-date-week-start="0" data-date-format="yyyy-mm-dd" data-date-start-view="month" data-initial-date="2019-02-16" data-date-autoclose="true"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div id="table" style="width:100%; height:auto; " class="datatables html-widget html-widget-output"></div>
+        </div>
+        <div class="container-fluid">
+          <a id="downloadData" class="shiny-download-link" href="" target="_blank" download>Download</a>
+        </div>
+      </div>
+      <div class="tab-pane" data-value="Tabelle Pivot" id="tab-2267-5">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-6">
+              <div style="height:10px"></div>
+              <div id="pivot" style="width:100%; height:500px; " class="rpivotTable html-widget html-widget-output"></div>
+            </div>
+          </div>
+          <br/>
+          <br/>
+          <br/>
+        </div>
+      </div>
+      <div class="tab-pane" data-value="Prove" id="tab-2267-6">This panel is intentionally left blank</div>
+    </div>
+  </div>
+</body>
+
+</html>

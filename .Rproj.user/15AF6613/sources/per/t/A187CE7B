@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1550130023842.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "775831145",
+    "id" : "A187CE7B",
+    "lastKnownWriteTime" : 1550134161,
+    "last_content_update" : -2147483648,
+    "path" : "D:/Dati/vito.tranquillo/gitProject/datiattiv/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+        "cursorPosition" : "175,52",
+        "docOutlineSize" : "115.97761838817854",
+        "docOutlineVisible" : "1",
+        "scrollLine" : "165"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,13 @@
+name: bgsova
+title: bgsova
+username:
+account: izslerbg
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 718708
+bundleId: 1877889
+url: https://izslerbg.shinyapps.io/bgsova/
+when: 1550228167.59566
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: versione con password/cantina/server.R|versione con password/cantina/ui.R|cantina

@@ -1,13 +1,231 @@
-#######################FUNZIONI DI R#############################################
 
-server<-function(input, output){
+
+credentials <- list("test" = "123")
+
+shinyServer(function(input, output) {
+  shinyURL.server()
   
-  #dati<-read.csv("dati.csv", header=T, sep=",")
-  # dati<-na.omit(dati)
-  # dati<-as.tibble(dati)
-  # dati$data<-as.Date(dati$datainizio)
-  # dati<- mutate(dati, mese=paste(year(datainizio),'-',month(datainizio),sep=''))
-  # dati$mese<-as.Date((paste(dati$mese,"-01",sep="")))
+  USER <- reactiveValues(Logged = FALSE)
+  
+  observeEvent(input$.login, {
+    if (isTRUE(credentials[[input$.username]]==input$.password)){
+      USER$Logged <- TRUE
+    } else {
+      show("message")
+      output$message = renderText("Invalid user name or password")
+      delay(2000, hide("message", anim = TRUE, animType = "fade"))
+    }
+  })
+  
+  output$app = renderUI(
+    if (!isTRUE(USER$Logged)) {
+      fluidRow(column(width=4, offset = 4,
+                      wellPanel(id = "login",
+                                textInput(".username", "Username:"),
+                                passwordInput(".password", "Password:"),
+                                div(actionButton(".login", "Log in"), style="text-align: center;")
+                      ),
+                      textOutput("message")
+      ))
+    } else {
+      # Sidebar with a slider input for number of bins
+      # sidebarLayout(
+      #   sidebarPanel(
+      #     sliderInput("bins",
+      #                 "Number of bins:",
+      #                 min = 1,
+      #                 max = 50,
+      #                 value = 30),
+      
+      navbarPage("Dati di attività della struttuta complessa BG-SO-VA",
+                 
+                 
+                 ######STRUTTURA COMPLESSA#################################             
+                 tabPanel("Struttura complessa ",
+                          fluidPage(
+                            fluidRow(
+                              
+                              column(6,div(style="height:50px"),dygraphOutput('dygraph')),
+                              
+                              column(6,div(style="height:50px"),dygraphOutput('vargraf'))),
+                            
+                            br(),
+                            
+                            
+                            fluidRow( 
+                              
+                              column(6,div(style="height:50px", align="center",sliderInput("mesi", "smoothing value", 0,48,1))),
+                              
+                              column(6,div(style="height:50px",align="center",
+                                           selectInput("set", "settore",
+                                                       c(unique(as.character(dati$settore))))))),
+                            
+                            br(),
+                            br(),
+                            hr()
+                            
+                            
+                            
+                          )
+                 ),
+                 #######REPARTO######################
+                 tabPanel("Reparto",
+                          fluidPage(
+                            
+                            fluidRow(
+                              column(12,div(style="height:50px",align="center",
+                                            selectInput("sez", "seleziona un reparto",
+                                                        c(unique(as.character(dati$reparto))))))
+                            ),
+                            
+                            fluidRow(
+                              column(6,div(style="height:50px"),dygraphOutput('regraph')),
+                              
+                              column(6,div(style="height:50px"),dygraphOutput('revargraf'))),
+                            
+                            
+                            br(),
+                            
+                            
+                            fluidRow(
+                              column(6,div(style="height:50px", align="center",sliderInput("mesi2", "smoothing value", 0,48,1))),
+                              
+                              
+                              column(6,div(style="height:50px",align="center",
+                                           selectInput("set2", "settore",
+                                                       c(unique(as.character(dati$settore))))))
+                            ),
+                            
+                            br(),
+                            br(),
+                            hr()      
+                            
+                            
+                            
+                            
+                          )
+                 ),
+                 ##############LABORATORIO###############################
+                 
+                 tabPanel("Laboratorio", 
+                          
+                          fluidPage(
+                            fluidRow(
+                              column(6,div(style="height:50px",align="center",
+                                           selectInput("sez2", "seleziona un reparto",
+                                                       c(unique(as.character(dati$reparto)))))),
+                              
+                              column(6, div(style="height:50px",align="center",
+                                            selectInput("laboratorio", "seleziona un laboratorio",
+                                                        c(unique(as.character(dati$labs))))))
+                              
+                            ),
+                            hr(),
+                            br(),
+                            fluidRow( 
+                              column(12, div(style="height:5px",align="center",
+                                             sliderInput("mesi3", "smoothing value", 0,48,1)))),
+                            br(),
+                            br(),
+                            br(),
+                            br(),
+                            br(),
+                            fluidRow(
+                              column(12, div(style="height:5px",align="center",
+                                             dygraphOutput('labgraph')))
+                              
+                            )
+                            
+                            
+                            
+                          )),
+                 ################DATA EXPLORER##########################
+                 tabPanel("Data Explorer",
+                          fluidRow(
+                            column(3,
+                                   selectInput("settore",
+                                               "Settore:",
+                                               c("All",
+                                                 unique(as.character(dati$settore))))
+                            ),
+                            column(3,
+                                   selectInput("reparto",
+                                               "Sezione:",
+                                               c("All",
+                                                 unique(as.character(dati$reparto))))
+                            ),
+                            column(3,
+                                   selectInput("labs",
+                                               "Laboratorio:",
+                                               c("All",
+                                                 unique(as.character(dati$labs))))
+                            ),
+                            
+                            column(3,
+                                   selectInput("finalità",
+                                               "Finalità della Prova:",
+                                               c("All",
+                                                 unique(as.character(dati$finalità))))
+                                   
+                                   
+                                   
+                            )),
+                          
+                          fluidRow(
+                            column(12,div(align='center',dateRangeInput('dateRange',
+                                                                        label = 'Seleziona un intervallo di tempo',
+                                                                        start = Sys.Date() - 2, end = Sys.Date() + 2
+                            )
+                            ))),
+                          # Create a new row for the table.
+                          fluidRow(
+                            DT::dataTableOutput("table")
+                          )
+                          # fluidPage(
+                          #   downloadLink("downloadData", "Download")
+                          # )
+                 ),
+                 
+                 
+                 ################PIVOT TABLE##########################
+                 tabPanel("Tabelle Pivot", 
+                          
+                          fluidPage(
+                            fluidRow(
+                              
+                              
+                              
+                              column(6,div(style="height:10px"),rpivotTableOutput("pivot") )
+                              
+                            ),
+                            
+                            br(),
+                            
+                            
+                            
+                            
+                            # box(dataTableOutput('table'))),
+                            
+                            
+                            
+                            br(),
+                            br()
+                            
+                            
+                            
+                            
+                          )
+                 )
+                 # ,
+                 # tabPanel("Prove", "This panel is intentionally left blank")
+      )
+
+          #shinyURL.ui()
+      
+    }
+    
+  )
+  
   tot<-summarise(group_by(dati,mese), esami=sum(esami,na.rm=TRUE))
   set<-summarise(group_by(dati,settore, mese),esami=sum(esami,na.rm=TRUE))
   Alim<-set%>%
@@ -32,11 +250,11 @@ server<-function(input, output){
   output$dygraph <- renderDygraph({
     
     dygraph(grafico(),ylab = "N.Esami / Mese")%>%
-      dySeries("..1", label="Totale Attività", color='red')%>%
-      dySeries("..2", label = "Settore Alimenti", color='green')%>%
-      dySeries("..3", label="Sanità Animale", color='blue')%>%
-      dySeries("..4", label="Controllo Qualità", color='black')%>%
-      dySeries("..5", label="Alimenti Zootecnici", color='brown')%>%
+      dySeries("totale", label="Totale Attività", color='red')%>%
+      dySeries("alimenti", label = "Settore Alimenti", color='green')%>%
+      dySeries("sanità", label="Sanità Animale", color='blue')%>%
+      dySeries("contr", label="Controllo Qualità", color='black')%>%
+      dySeries("zoo", label="Alimenti Zootecnici", color='brown')%>%
       dyHighlight(highlightSeriesOpts = list(strokeWidth = 1.5))%>%
       dyRoller(rollPeriod = input$mesi)%>%
       dyRangeSelector()
@@ -65,11 +283,11 @@ server<-function(input, output){
     rgraf<-cbind(rtotale,ralimenti,rsanità, rcontr, rzoo)
     
     dygraph(rgraf,ylab = "N.Esami / Mese")%>%
-      dySeries("..1", label="Totale Attività", color='red')%>%
-      dySeries("..2", label = "Settore Alimenti", color='green')%>%
-      dySeries("..3", label="Sanità Animale", color='blue')%>%
-      dySeries("..4", label="Controllo Qualità", color='black')%>%
-      dySeries("..5", label="Alimenti Zootecnici", color='brown')%>%
+      dySeries("rtotale", label="Totale Attività", color='red')%>%
+      dySeries("ralimenti", label = "Settore Alimenti", color='green')%>%
+      dySeries("rsanità", label="Sanità Animale", color='blue')%>%
+      dySeries("rcontr", label="Controllo Qualità", color='black')%>%
+      dySeries("rzoo", label="Alimenti Zootecnici", color='brown')%>%
       dyHighlight(highlightSeriesOpts = list(strokeWidth = 1.5))%>%
       dyRoller(rollPeriod = input$mesi2)%>%
       dyRangeSelector()
@@ -143,8 +361,8 @@ server<-function(input, output){
   
   ##########################DATA EXPLORER############################
   
-  output$table <- DT::renderDataTable(DT::datatable({
-    #dati$datainizio<-as.Date(dati$datainizio)
+  output$table <- DT::renderDataTable({
+    dati$datainizio<-as.Date(dati$datainizio)
     data <- na.omit(dati)
     if (input$settore != "All") {
       data <- data[data$settore == input$settore,]
@@ -160,23 +378,21 @@ server<-function(input, output){
     }
     data<-data[data$datainizio>=input$dateRange[1]&data$datainizio<=input$dateRange[2], ]
     
-    data[,-c(1,2,5,8,10,11,12,14,15)]
+    data[,-c(1,2,5,8,10,11,12,14)]
     
     
-  },filter = 'top',extensions = 'Buttons',options = list(dom = 'Bfrtip',
-                                                         buttons = c('csv', 'excel'))
+  },server= FALSE,filter = 'top',extensions = 'Buttons',class = 'cell-border stripe',
+  options = list(dom = 'Bfrtip',searching = FALSE,paging = TRUE,autoWidth = TRUE,
+                 pageLength = 10,buttons = c("csv",'excel'))
   
+  )
   
-  
-  
-  ))
-  
-##################PIVOT TABLE#################
+  ##################PIVOT TABLE#################
   output$pivot <- renderRpivotTable({
-    rpivotTable(dati)
+    dx<-dati %>% 
+      dplyr::select(settore,prova, reparto, labs, esami, anno,tecnica)
+    rpivotTable(dx,aggregatorName="Sum", vals="esami")
   })
   
-}
-
-
-
+})
+  
