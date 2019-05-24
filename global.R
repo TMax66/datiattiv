@@ -20,7 +20,7 @@ library(rpivotTable)
 library(shinyjs)
 #library(shinyURL)
 ####################################################################
-dati<-read.csv("newdati.csv", header=T, sep=";")
+dati<-read.csv("newdati.csv", header=T, sep=";", fileEncoding="latin1")
 dati<-as_tibble(dati)
 dati$datainizio<-dmy(dati$datainizio)
 dati<- mutate(dati, mese=paste(year(datainizio),'-',month(datainizio),sep=''))

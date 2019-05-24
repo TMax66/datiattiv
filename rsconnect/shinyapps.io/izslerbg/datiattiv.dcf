@@ -1,0 +1,13 @@
+name: datiattiv
+title: datiattiv
+username:
+account: izslerbg
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 723247
+bundleId: 2012138
+url: https://izslerbg.shinyapps.io/datiattiv/
+when: 1555331376.97627
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .gitattributes|ultimo aggiornamento 31032019dati.xlsx|cantina

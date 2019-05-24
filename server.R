@@ -3,7 +3,7 @@
 credentials <- list("test" = "123")
 
 shinyServer(function(input, output) {
-  shinyURL.server()
+  
   
   USER <- reactiveValues(Logged = FALSE)
   
@@ -28,14 +28,6 @@ shinyServer(function(input, output) {
                       textOutput("message")
       ))
     } else {
-      # Sidebar with a slider input for number of bins
-      # sidebarLayout(
-      #   sidebarPanel(
-      #     sliderInput("bins",
-      #                 "Number of bins:",
-      #                 min = 1,
-      #                 max = 50,
-      #                 value = 30),
       
       navbarPage("Dati di attività della struttuta complessa BG-SO-VA",
                  
@@ -390,7 +382,7 @@ shinyServer(function(input, output) {
   ##################PIVOT TABLE#################
   output$pivot <- renderRpivotTable({
     dx<-dati %>% 
-      dplyr::select(settore,prova, reparto, labs, esami, anno,tecnica)
+      dplyr::select(settore,prova, reparto, labs, esami, anno,tecnica,mese)
     rpivotTable(dx,aggregatorName="Sum", vals="esami")
   })
   
