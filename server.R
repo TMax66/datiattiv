@@ -383,7 +383,7 @@ shinyServer(function(input, output) {
   output$pivot <- renderRpivotTable({
     dx<-dati %>% 
       dplyr::select(settore,prova, reparto, labs, esami, anno,tecnica,mese)
-    rpivotTable(dx,aggregatorName="Sum", vals="esami")
+    rpivotTable(dx,aggregatorName="Integer Sum", vals="esami")
   })
   
 })
