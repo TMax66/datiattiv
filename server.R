@@ -1,6 +1,6 @@
 
 
-credentials <- list("test" = "123")
+credentials <- list("test" = "#123")
 
 shinyServer(function(input, output) {
   

@@ -17,3 +17,4 @@ $RECYCLE.BIN/
 # Operating System Files
 # =========================
 .httr-oauth
+.Rproj.user
